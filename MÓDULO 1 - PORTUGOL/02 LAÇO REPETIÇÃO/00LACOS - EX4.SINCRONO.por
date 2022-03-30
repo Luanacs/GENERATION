@@ -3,31 +3,26 @@ programa
 	
 	funcao inicio()
 	{
-	real P, E, M
+		inteiro tabuada,x=1,resultado
 
-	escreva("\nEscreva o peso dos tomates: ")
-	leia(P)
+		escreva("\nDigite qual a tabuada que deseja visualizar: ")
+		leia(tabuada) //8
 
-	se (P<=50 e P>0)
-	{
-		P=0.0
-		E=0.0
-		escreva("\nO peso não excede o permitido, não haverá multa a pagar ", P, E)
+		faca
+		{
+			resultado = tabuada * x
+			escreva("\n",tabuada, " X ",x," = ",resultado)
+			x++
+		}enquanto(x<=10)
 	}
-	senao 
-	{
-		E=P-50
-		M=E*4
-		escreva("\nO valor da multa que João deverá pagar é: ", M)
-	}
-	}
-}
+} 
+
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 322; 
+ * @POSICAO-CURSOR = 268; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
