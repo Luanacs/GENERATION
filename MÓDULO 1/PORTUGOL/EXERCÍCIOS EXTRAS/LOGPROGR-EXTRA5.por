@@ -33,7 +33,7 @@ programa
 		}
 		se (codigo==2)
 		{
-			para(cont=0;cont<5;cont--)
+			para(cont=4;cont>=0;cont--)
 			{
 				escreva("\nVetor na posição inversa é:\n", vetor[cont])
 			}
@@ -47,8 +47,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 871; 
- * @PONTOS-DE-PARADA = ;
+ * @POSICAO-CURSOR = 554; 
+ * @PONTOS-DE-PARADA = 38, 31;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
