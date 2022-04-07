@@ -77,28 +77,30 @@ public class LISTA4EX4 {
 				}
 				break;
 			case 3:
+				System.out.println("\nDefina o valor da constante: ");
+				constante=leia.nextInt();
+					for (i=0;i<2;i++)
+						{
+							for (j=0;j<2;j++)
+								{
+									A[i][j] += constante;
+									B[i][j] += constante;
+								}
+							System.out.println("\nA matriz A com a constante definida é: "+A[i][j]);
+							System.out.println("\nA matriz B com a constante definida é: "+B[i][j]);
+						}
+					break;	
+			case 4:
 				for(i=0;i<2;i++)
 				{
 					for(j=0;j<2;j++)
 					{
-						System.out.println("\nDefina o valor da constante: ");
-						constante=leia.nextInt();
-						C[i][j]=constante*A[i][j];
-						System.out.println("\nA matriz com a constante definida é: "+C[i][j]);
-						C[i][j]=constante*B[i][j];
-						System.out.println("\nA matriz com a constante definida é: "+C[i][j]);
+						
+						System.out.println("\nMatriz1: "+A[i][j]);
+						System.out.println("\nMatriz2: "+B[i][j]);
 					}
 				}
-				break;	
-			case 4:
-				for(i=0;i<2;i++)
-					{
-						for(j=0;j<2;j++)
-						{
-							C[i][j]=A[i][j]-B[i][j];
-							System.out.println("\nSubtração das matrizes é: "+C[i][j]);
-						}
-					}
+
 				break;		
 				default:
 				{
