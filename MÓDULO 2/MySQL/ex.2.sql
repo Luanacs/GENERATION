@@ -1,37 +1,59 @@
-create  database db_Luana_rh;
+create database dt_ecommerce;
 
-use db_Luana_rh;
+use dt_ecommerce;
 
-create table tb_controleFuncionarios(
-rg bigint not null,
-nome char(255) not null,
-idade char(255) not null,
-generoIdentifica char(255),
-nFilhos int not null,
-estadoCivil char(255) not null,
-cargo char(255) not null,
-tempoEmpresa int,
-salario double not null,
-primary key(rg)
+create table tb_ecommerce(
+codProduto int auto_increment,
+nomeProduto char(255) not null,
+marca char(255) not null,
+valor double not null,
+quantidade int not null,
+cor char(255) not null,
+observacao varchar(255),
+primary key(codProduto)
 );
 
-select * from tb_controleFuncionarios;
+select * from tb_ecommerce;
 
-insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
-values(9265194,"Luana",26,"Cisgenero",0,"Solteira", "DevJr",1,5000);
-insert into tb_controleFuncionarios(rg,nome,idade,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
-values(12345,"Fábio",26,0,"Solteiro", "DevJr",2,10000);
-insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,salario)
-values(54321,"Leonardo",26,"Cisgenero",0,"Solteiro", "DevJr",7000);
-insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
-values(23456,"Luciana",30,"Bissexual",0,"Solteira", "DevSenior",4,14000);
-insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
-values(34567,"Robson",35,"Gay",3,"Casado", "DevPleno",6,25000);
+insert into tb_ecommerce(nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Relógio","Galaxy",299.00,1,"Azul","Pulseira preta");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Relógio","Apple",999.00,2,"Preto","Pulseira Branca");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor)
+values("Relógio","Xiaomi",499.00,3,"Branco");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor)
+values("Celular","Galaxy",1999.00,1,"Prata");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Celular","Apple",3999.00,1,"Branco","128gb");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Celular","Xiaomi",2999.00,1,"Amarelo","256gb");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Fone de ouvido","Galaxy",99.00,1,"Preto","Bluetooth");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Fone de ouvido","Apple",1999.00,1,"Branco","Bluetooth");
+insert into tb_ecommerce (nomeProduto,marca,valor,quantidade,cor,observacao)
+values("Fone de ouvido","Xiaome",399.00,1,"Preto","Headphone");
 
-select *from tb_controleFuncionarios where salario>2000;
+update tb_ecommerce set cor = "Prata" where codProduto=3;
+update tb_ecommerce set quantidade=2 where codProduto=7;
+update tb_ecommerce set observacao="Digital" where codProduto=3;
 
-select *from tb_controleFuncionarios where salario<2000;
+select*from tb_ecommerce where valor >500;
+select*from tb_ecommerce where valor <500;
 
-update tb_controleFuncionarios set nome="Ruan" where rg=12345;
+delete from tb_ecommerce where codProduto=4;
 
-alter table tb_controleFuncionarios add etnia char(255);
+alter table tb_ecommerce add prontaEntrega int;
+
+update tb_ecommerce set prontaEntrega = quantidade where codProduto=1;
+update tb_ecommerce set prontaEntrega = quantidade-1 where codProduto=2;
+update tb_ecommerce set prontaEntrega = quantidade where codProduto=3;
+update tb_ecommerce set prontaEntrega = 0 where codProduto=5;
+update tb_ecommerce set prontaEntrega = 0 where codProduto=6;
+update tb_ecommerce set prontaEntrega = quantidade where codProduto=7;
+update tb_ecommerce set prontaEntrega = 0 where codProduto=8;
+update tb_ecommerce set prontaEntrega = quantidade where codProduto=9;
+
+
+
+

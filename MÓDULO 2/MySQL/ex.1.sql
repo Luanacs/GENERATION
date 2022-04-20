@@ -1,58 +1,37 @@
-#criar banco de dados (boas praticas colocar ; para dizer que encerrei uma linha de codigo)
-create database db_servico;
+create  database db_Luana_rh;
 
-#inicializar o banco (comando use é usado pra selecionar qual o banco de dados q vou querer trabalhar dentre os bancos que já foram criados)
-use db_servico_rh;
+use db_Luana_rh;
 
-# criar tabela (tem que colocar as variáveis entre () e fechar com ;
-# (bigint tem limite maior que o int/
-# auto_increment - toda vez que eu criar um produto ele preenche automatico um novo id)/ 
-# usa a virgula para concatenar - por boas praticas colocar em linhas abaixo e não lado a lado // 
-# not null não pode vir vazio, tem que receber um valor, ser preenchido com alguma informação
-# descrição por ser uma informação adicional eu não preciso colocar obrigatoriamente preencher , por isso não colocou o not null
-# para excluir minha tabela eu uso o comando: drop table tb_funcionarios;
-create table tb_funcionarios(
-id bigint auto_increment,
+create table tb_controleFuncionarios(
+rg bigint not null,
 nome char(255) not null,
-idade int not null,
+idade char(255) not null,
+generoIdentifica char(255),
+nFilhos int not null,
+estadoCivil char(255) not null,
+cargo char(255) not null,
+tempoEmpresa int,
 salario double not null,
-funcao varchar(255) not null,
-descricao varchar(255),
-primary key (id)
+primary key(rg)
 );
 
-#visualizar toda tabela (Estrtura - selecionar(select) toda(*) tabela - from (de qual tabela) + nome da tabela)
-select * from tb_funcionarios;
+select * from tb_controleFuncionarios;
 
-#inserir informações na tabela
-insert into tb_funcionarios (nome,idade,salario,funcao,descricao) 
-values ("Julio",30,30000, "DevJr","Funcionario do mês!");
+insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
+values(9265194,"Luana",26,"Cisgenero",0,"Solteira", "DevJr",1,5000);
+insert into tb_controleFuncionarios(rg,nome,idade,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
+values(12345,"Fábio",26,0,"Solteiro", "DevJr",2,10000);
+insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,salario)
+values(54321,"Leonardo",26,"Cisgenero",0,"Solteiro", "DevJr",7000);
+insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
+values(23456,"Luciana",30,"Bissexual",0,"Solteira", "DevSenior",4,14000);
+insert into tb_controleFuncionarios(rg,nome,idade,generoIdentifica,nFilhos,estadoCivil, cargo,tempoEmpresa,salario)
+values(34567,"Robson",35,"Gay",3,"Casado", "DevPleno",6,25000);
 
-#nesse caso eu deixei sem a descrição porque não é obrigatório então ele vai rodar normalmente, 
-#se eu tirasse alguma das variáveis que estão com not null, ele não executaria.
-insert into tb_funcionarios (nome,idade,salario,funcao) 
-values ("Rute",18,40000, "DevJr");
+select *from tb_controleFuncionarios where salario>2000;
 
-#pesquisa de alguma informação especifica
-select * from tb_funcionarios where salario > 30000;
-select * from tb_funcionarios where salario < 31000;
-select * from tb_funcionarios where salario = 40000;
-select * from tb_funcionarios where nome = "Julio";
+select *from tb_controleFuncionarios where salario<2000;
 
-# nessa busca ele vai me passar os valores somente das variáveis que eu selecionei, procurando pelos nomes que tem "ru"
-select nome, idade from tb_funcionarios where nome like "%ru%";
+update tb_controleFuncionarios set nome="Ruan" where rg=12345;
 
-#atualizar variável
-update tb_funcionarios set nome = "Fábio" where id=1;
-
-#apagar
-delete from tb_funcionarios where id=1;
-
-#alterar tabela e acrescentar uma variável
-alter table tb_funcionarios add cpf int not null;
-
-#alterar uma tabela e modificar uma variavel ja existente
-alter table tb_funcionarios change nome nomeCompleto varchar(255);
-
-#excluir algo da tabela
-alter table tb_funcionarios drop column cpf;
+alter table tb_controleFuncionarios add etnia char(255);
