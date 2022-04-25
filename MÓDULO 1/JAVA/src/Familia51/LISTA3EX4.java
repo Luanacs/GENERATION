@@ -23,32 +23,33 @@ public class LISTA3EX4 {
 		System.out.printf("%nPara %n1= Calma %n2= Nervosa %n3= Agressiva %nQual o temperamento do participante %d ?", contador+1);
 		temperamento = ler.nextInt();
 		
-		contador++;
+		
 		
 		if (temperamento==1)
 		{
 			contCalma++;
 		}
-		else if (sexo==1 && temperamento==2)
+		if (sexo==1 && temperamento==2)
 		{
 			contMulherNervosa++;
 		}
-		else if (sexo==2 && temperamento==3)
+		if (sexo==2 && temperamento==3)
 		{
 			contHomemAgressivo++;
 		}
-		else if (sexo==3 && temperamento==1)
+		if (sexo==3 && temperamento==1)
 		{
 			contOutrosCalmo++;
 		}
-		else if (idade>40 && temperamento==2)
+		if (idade>40 && temperamento==2)
 		{
 			contIdadeNervosa++;
 		}
-		else if (idade<18 && temperamento==1)
+		if (idade<18 && temperamento==1)
 		{
 			contIdadeCalma++;
 		}
+		contador++;
 		
 	}
 	System.out.println("\n O número de pessoas calmas é: "+contCalma);
