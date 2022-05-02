@@ -19,41 +19,44 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.blogpessoal1.blogpessoal1.model.Postagens;
-import com.blogpessoal1.blogpessoal1.model.Temas;
-import com.blogpessoal1.blogpessoal1.model.Usuarios;
-import com.blogpessoal1.blogpessoal1.repositorio.UsuariosRepositorio;
+import com.blogpessoal1.blogpessoal1.model.Usuario;
+import com.blogpessoal1.blogpessoal1.repositorio.UsuarioRepositorio;
 
 @RestController 
 @RequestMapping("/usuarios")
-public class UsuariosController {
+public class UsuarioController {
 
 	@Autowired
-	UsuariosRepositorio usuariosRepositorio;
+	UsuarioRepositorio usuariosRepositorio;
 	
 	@GetMapping //método para acessar
-	public List<Usuarios> getAll() {
-		List<Usuarios>listaDeUsuarios=usuariosRepositorio.findAll();
+	public List<Usuario> getAll() {
+		List<Usuario>listaDeUsuarios=usuariosRepositorio.findAll();
 		return listaDeUsuarios;
 	}
 	@GetMapping("/{id}") //método para acessar
-	public ResponseEntity<Usuarios> getById(@PathVariable Long id) {
+	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
 		return usuariosRepositorio.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
-	
-	@GetMapping ("/titulo/{titulo}")
-	public ResponseEntity<List<Usuarios>> getByTitulo(@PathVariable String titulo){
-		return ResponseEntity.ok(usuariosRepositorio.findAllByTituloContainingIgnoreCase(titulo));
+	/*
+	@GetMapping("/nome/{nome")
+	public ResponseEntity<List<Usuario>> getByName(@PathVariable String nome){
+		return ResponseEntity.ok(usuariosRepositorio.findAllByNomeContainingIgnoreCase(nome));
+	}*/
+	@GetMapping("/descricao/{descricao")
+	public ResponseEntity<List<Usuario>> getByName(@PathVariable String usuario){
+		return ResponseEntity.ok(usuariosRepositorio.findAllByUsuarioContainingIgnoreCase(usuario));
 	}
 	
+
 	@PostMapping
-	public ResponseEntity<Usuarios> post(@Valid @RequestBody Usuarios usuarios){
+	public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuarios){
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuariosRepositorio.save(usuarios));
 	}
 	@PutMapping
-	public ResponseEntity<Usuarios> put(@Valid @RequestBody Usuarios usuarios){
+	public ResponseEntity<Usuario> put(@Valid @RequestBody Usuario usuarios){
 		return usuariosRepositorio.findById(usuarios.getId())
 				.map(resposta-> ResponseEntity.status(HttpStatus.OK)
 						.body(usuariosRepositorio.save(usuarios)))
@@ -63,7 +66,7 @@ public class UsuariosController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete (@PathVariable Long id) {
-		Optional <Usuarios>usuarios=usuariosRepositorio.findById(id);
+		Optional <Usuario>usuarios=usuariosRepositorio.findById(id);
 		if(usuarios.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		

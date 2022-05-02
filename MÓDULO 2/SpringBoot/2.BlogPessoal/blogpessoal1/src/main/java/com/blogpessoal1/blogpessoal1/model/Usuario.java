@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity //entidade de tabela
 @Table (name = "tb_usuarios") // dou um nome à minha tabela
-public class Usuarios {
+public class Usuario {
 	
 
 

@@ -6,19 +6,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity //entidade de tabela
-@Table (name = "tb_postagens") // dou um nome à minha tabela
-public class Postagens {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity //entidade do JPA - 
+@Table (name = "tb_postagens") // do tipo tabela dou um nome à minha tabela
+public class Postagem {
 	
 
 
-	@Id  // chave primaria
+	@Id                                // chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
 	private long id;
 	
@@ -27,14 +30,16 @@ public class Postagens {
 	private String titulo;
 	
 	@NotBlank  //not null
-	@Size( max=1000) //tamanho maximo
+	@Size( max=1000)                   //tamanho maximo
 	private String texto;
 	
-	@UpdateTimestamp //vai atualizar de acordo com a data e hora atual
+	@UpdateTimestamp                   //vai atualizar de acordo com a data e hora atual
 	private LocalDateTime data;
 	
-	private String foto;
-
+	@ManyToOne                         // relação muitos para um
+	@JsonIgnoreProperties("postagem")  //usado pra tirar o looping
+	private Tema tema;                 //foreign key - criou relação entre as tabelas
+	
 	public long getId() {
 		return id;
 	}
@@ -67,13 +72,15 @@ public class Postagens {
 		this.data = data;
 	}
 
-	public String getFoto() {
-		return foto;
+
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
+	
 	
 	
 
