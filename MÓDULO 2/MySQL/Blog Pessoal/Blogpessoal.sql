@@ -12,7 +12,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema db_blogPessoal
+-- Schema db_blogPessoaltb_temas
 -- -----------------------------------------------------
 create database db_blog_pessoal;
 
@@ -68,7 +68,7 @@ create table tb_postagens(
   ON DELETE NO ACTION
   ON UPDATE NO ACTION  
 );
-
+tb_postagens
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
