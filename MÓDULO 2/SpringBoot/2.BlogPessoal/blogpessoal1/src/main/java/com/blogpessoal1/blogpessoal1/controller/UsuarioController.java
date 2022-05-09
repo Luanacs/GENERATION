@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,16 +25,17 @@ import com.blogpessoal1.blogpessoal1.repositorio.UsuarioRepositorio;
 
 @RestController 
 @RequestMapping("/usuarios")
+@CrossOrigin(origins="*",allowedHeaders="*")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioRepositorio usuariosRepositorio;
 	
-	@GetMapping //método para acessar
-	public List<Usuario> getAll() {
-		List<Usuario>listaDeUsuarios=usuariosRepositorio.findAll();
-		return listaDeUsuarios;
+	@GetMapping ("/all")
+	public ResponseEntity < List<Usuario> > getAll() {
+		return ResponseEntity.ok(usuariosRepositorio.findAll());
 	}
+	
 	@GetMapping("/{id}") //método para acessar
 	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
 		return usuariosRepositorio.findById(id)
@@ -41,25 +43,20 @@ public class UsuarioController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	/*
-	@GetMapping("/nome/{nome")
+	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Usuario>> getByName(@PathVariable String nome){
 		return ResponseEntity.ok(usuariosRepositorio.findAllByNomeContainingIgnoreCase(nome));
-	}*/
-	@GetMapping("/descricao/{descricao")
-	public ResponseEntity<List<Usuario>> getByName(@PathVariable String usuario){
-		return ResponseEntity.ok(usuariosRepositorio.findAllByUsuarioContainingIgnoreCase(usuario));
-	}
 	
-
-	@PostMapping
-	public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuarios){
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuarios){
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuariosRepositorio.save(usuarios));
 	}
 	@PutMapping
-	public ResponseEntity<Usuario> put(@Valid @RequestBody Usuario usuarios){
-		return usuariosRepositorio.findById(usuarios.getId())
+	public ResponseEntity<Usuario> put(@Valid @RequestBody Usuario usuario){
+		return usuariosRepositorio.findById(usuario.getId())
 				.map(resposta-> ResponseEntity.status(HttpStatus.OK)
-						.body(usuariosRepositorio.save(usuarios)))
+						.body(usuariosRepositorio.save(usuario)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
@@ -72,5 +69,5 @@ public class UsuarioController {
 		
 		usuariosRepositorio.deleteById(id);
 	}
-	
+	*/
 }

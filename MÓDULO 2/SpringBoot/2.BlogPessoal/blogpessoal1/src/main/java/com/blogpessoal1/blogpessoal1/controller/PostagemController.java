@@ -1,4 +1,4 @@
-package com.blogpessoal1.blogpessoal1.controller;
+	package com.blogpessoal1.blogpessoal1.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +26,7 @@ import com.blogpessoal1.blogpessoal1.repositorio.TemaRepositorio;
 
 @RestController 
 @RequestMapping("/postagens")  //receber requisições
-@CrossOrigin("*")              //Pode ser "consumido" de qualquer origem
+@CrossOrigin(origins="*",allowedHeaders="*")              //Pode ser "consumido" de qualquer origem
 public class PostagemController {
 
 	@Autowired // 
@@ -74,13 +74,13 @@ public class PostagemController {
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public void delete (@PathVariable Long id) {
-		Optional <Postagem>postagens=postagensRepositorio.findById(id);
-		if(postagens.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	public ResponseEntity<?> deletePostagem(@PathVariable Long id) {
 		
-		postagensRepositorio.deleteById(id);
+		return postagensRepositorio.findById(id)
+				.map(resposta -> {
+					postagensRepositorio.deleteById(id);
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+				})
+				.orElse(ResponseEntity.notFound().build());
 	}
-	
-	
 }
