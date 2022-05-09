@@ -43,9 +43,9 @@ public class UsuarioController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	/*
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Usuario>> getByName(@PathVariable String nome){
-		return ResponseEntity.ok(usuariosRepositorio.findAllByNomeContainingIgnoreCase(nome));
+	@GetMapping("/usuario/{usuario}")
+	public ResponseEntity<List<Usuario>> getByUsuario(@PathVariable String usuario){
+		return ResponseEntity.ok(usuariosRepositorio.findByUsuario(usuario));
 	
 	
 	@PostMapping("/cadastrar")
