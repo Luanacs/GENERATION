@@ -1,46 +1,55 @@
 package com.blogpessoal1.blogpessoal1.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Entity //entidade de tabela
-@Table (name = "tb_usuarios") // dou um nome à minha tabela
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity 
+@Table (name = "tb_usuarios")
 public class Usuario {
 	
 
 
 	@Id  // chave primaria
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
 	
-	@NotBlank  //not null
+	@NotBlank  
 	@Size(min = 2, max=255)
 	private String nome;
 	
-	@NotBlank  //not null
-	@Size(min=3, max=1000) //tamanho maximo
+	@NotBlank  
+	@Size(min=3, max=1000) 
 	private String usuario;
 	
-	@NotBlank  //not null
-	@Size(min=3, max=1000) //tamanho maximo
+	@NotBlank  
+	@Size(min=8) 
 	private String senha;
 	
-	@Size(max=1000) //tamanho maximo
 	private String foto;
 	
-	@Size(max=1000) //tamanho maximo
+	@Size(max=1000) 
 	private String tipo;
 
-	public long getId() {
+	@OneToMany(mappedBy= "tema", cascade = CascadeType.REMOVE) 
+	@JsonIgnoreProperties("tema")
+	private List<Postagem> postagem;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -84,6 +93,13 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
 
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+	
 
 }
