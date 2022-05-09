@@ -40,6 +40,10 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")  //usado pra tirar o looping
 	private Tema tema;                 //foreign key - criou relação entre as tabelas
 	
+	@ManyToOne
+	@JsonIgnoreProperties("usuario")  
+	private Usuario usuario; 
+	
 	public long getId() {
 		return id;
 	}

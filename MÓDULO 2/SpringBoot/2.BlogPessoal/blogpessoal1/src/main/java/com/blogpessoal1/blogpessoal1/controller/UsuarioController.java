@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.blogpessoal1.blogpessoal1.model.Usuario;
+import com.blogpessoal1.blogpessoal1.model.UsuarioLogin;
 import com.blogpessoal1.blogpessoal1.repositorio.UsuarioRepositorio;
+import com.blogpessoal1.blogpessoal1.service.UsuarioService;
 
 @RestController 
 @RequestMapping("/usuarios")
@@ -29,45 +31,45 @@ import com.blogpessoal1.blogpessoal1.repositorio.UsuarioRepositorio;
 public class UsuarioController {
 
 	@Autowired
-	UsuarioRepositorio usuariosRepositorio;
+	private UsuarioService service;
+	
+	@Autowired
+	UsuarioRepositorio repository;
 	
 	@GetMapping ("/all")
 	public ResponseEntity < List<Usuario> > getAll() {
-		return ResponseEntity.ok(usuariosRepositorio.findAll());
+		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}") //método para acessar
 	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
-		return usuariosRepositorio.findById(id)
+		return repository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
-	/*
-	@GetMapping("/usuario/{usuario}")
-	public ResponseEntity<List<Usuario>> getByUsuario(@PathVariable String usuario){
-		return ResponseEntity.ok(usuariosRepositorio.findByUsuario(usuario));
-	
-	
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuarios){
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuariosRepositorio.save(usuarios));
-	}
-	@PutMapping
-	public ResponseEntity<Usuario> put(@Valid @RequestBody Usuario usuario){
-		return usuariosRepositorio.findById(usuario.getId())
-				.map(resposta-> ResponseEntity.status(HttpStatus.OK)
-						.body(usuariosRepositorio.save(usuario)))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}
-	
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{id}")
-	public void delete (@PathVariable Long id) {
-		Optional <Usuario>usuarios=usuariosRepositorio.findById(id);
-		if(usuarios.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
-		usuariosRepositorio.deleteById(id);
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioLogin> autenticationUsuario(
+	@RequestBody Optional<UsuarioLogin> usuario) {		
+		return service.logarUsuario(usuario)
+			.map(resp -> ResponseEntity.ok(resp))
+			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
-	*/
+
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> postUsuario(
+	@Valid @RequestBody Usuario usuario) {		
+		return service.cadastroUsuario(usuario) /*verificar informação*/
+		.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+		.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());		
+	}
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario> putUsuario(
+	@Valid @RequestBody Usuario usuario){		
+		return service.atualizarUsuario(usuario)
+			.map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
+			.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
 }
