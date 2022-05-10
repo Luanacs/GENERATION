@@ -41,8 +41,8 @@ public class Usuario {
 	@Size(max=1000) 
 	private String tipo;
 
-	@OneToMany(mappedBy= "tema", cascade = CascadeType.REMOVE) 
-	@JsonIgnoreProperties("tema")
+	@OneToMany(mappedBy= "usuario", cascade = CascadeType.REMOVE) 
+	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
 	public Long getId() {

@@ -41,7 +41,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{id}") //método para acessar
+	@GetMapping("/{id}") 
 	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
 		return repository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
