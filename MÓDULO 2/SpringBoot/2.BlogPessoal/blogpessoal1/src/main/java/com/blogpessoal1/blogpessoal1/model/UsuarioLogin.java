@@ -13,6 +13,8 @@ public class UsuarioLogin {
 		private String foto;
 		
 		private String tipo;
+		
+		private String token;
 
 		public String getTipo() {
 			return tipo;
@@ -22,7 +24,6 @@ public class UsuarioLogin {
 			this.tipo = tipo;
 		}
 
-		private String token;
 
 		public Long getId() {
 			return id;
