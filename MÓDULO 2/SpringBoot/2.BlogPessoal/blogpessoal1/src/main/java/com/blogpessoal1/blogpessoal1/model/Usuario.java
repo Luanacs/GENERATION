@@ -14,36 +14,48 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity 
-@Table (name = "tb_usuarios")
+@Entity
+@Table(name = "tb_usuarios")
 public class Usuario {
-	
 
-
-	@Id  // chave primaria
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@Id // chave primaria
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank  
-	@Size(min = 2, max=255)
+
+	@NotBlank
+	@Size(min = 2, max = 255)
 	private String nome;
-	
-	@NotBlank  
-	@Size(min=3, max=1000) 
+
+	@NotBlank
+	@Size(min = 3, max = 1000)
 	private String usuario;
-	
-	@NotBlank  
-	@Size(min=8) 
+
+	@NotBlank
+	@Size(min = 8)
 	private String senha;
-	
+
 	private String foto;
-	
-	@Size(max=1000) 
+
+	@Size(max = 1000)
 	private String tipo;
 
-	@OneToMany(mappedBy= "usuario", cascade = CascadeType.REMOVE) 
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+
+	public Usuario(Long id, String nome, String usuario, String senha, String foto, String tipo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+		this.tipo = tipo;
+	}
+
+	public Usuario() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -100,6 +112,5 @@ public class Usuario {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-	
 
 }
